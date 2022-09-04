@@ -1,4 +1,4 @@
--- FUNCTIONS 
+-- Julia's functions 
 
 --FUNCTION TO ADD CUSTOMERS
 CREATE OR REPLACE FUNCTION add_customer(_a INTEGER, _b VARCHAR, _c VARCHAR, _d VARCHAR, _e VARCHAR)
@@ -56,7 +56,7 @@ END;
 $MAIN$
 ABORT
 
--- original procedure trying to caucluate price as it added parts invoice 
+-- original function trying to caucluate price as it added parts invoice 
 -- BEGIN 
 -- 	INSERT INTO "part_invoice"
 -- 	VALUES(pi_id, p_id, quan, (
@@ -159,6 +159,8 @@ CALL customercar(1)
 
 
 
+
+--Saad's functions 
 
 --Function for inserting data into car table
 CREATE OR REPLACE FUNCTION add_car(_car_id INTEGER, _make VARCHAR, _model VARCHAR, 
