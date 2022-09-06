@@ -31,6 +31,7 @@ SELECT add_part(3, 'battery', 99.99, 32);
 SELECT add_part(4, 'wipers', 15.95, 120);
 SELECT add_part(5, 'oil', 38.99, 17);
 
+SELECT * from part_invoice;
 
 --FUNCTION TO ADD PARTS INVOICE (JULIA)
 --I tried to get this function to do two things at once but I had a really hard time!!!
@@ -68,7 +69,7 @@ ABORT
 
 -- I made a separate procedure to update the price of the invoice based on the inventory price, 
 -- but for some reason it is only referring to the price of the battery(99.99)
-CREATE OR REPLACE PROCEDURE update_part_price()
+CREATE OR REPLACE PROCEDURE update_part_price(_x INTEGER)
 LANGUAGE plpgsql
 AS $$
 BEGIN 
@@ -76,12 +77,14 @@ BEGIN
 	SET total_price = "parts_Inventory".price * part_invoice.quantity
 	FROM "parts_Inventory"
 	FULL JOIN part_invoice AS pi
-	ON pi.parts_id = "parts_Inventory".parts_id;
+	ON pi.parts_id = "parts_Inventory".parts_id
+	WHERE part_invoice.parts_invoice_id = _x;
 	COMMIT;
 END;
 $$
 
-CALL update_part_price();
+
+CALL update_part_price(6);
 
 --added lots of invoices as I was testing out the functions. Update price function must be called to add price
 SELECT * from "part_invoice";
